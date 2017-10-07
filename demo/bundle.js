@@ -1,4 +1,27 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var ToggleWidget = require("../main.js");
+var div1 = document.createElement("div");
+var div2 = document.createElement("div");
+var toggle1 = ToggleWidget(div1);
+var toggle2 = ToggleWidget(div2, {
+  colors: ["orange", "olive", "pink"]
+});
+document.body.appendChild(div1);
+document.body.appendChild(div2);
+div1.addEventListener("toggle", function (event) {
+  console.log("toggle1 "+event.toggled);
+  // Disabled container prevent user click to toggle the button
+  // but toggle method can still programmatically switch it.
+  div2.disabled = event.toggled;
+});
+div2.addEventListener("toggle", function (event) {
+  console.log("toggle2 "+event.toggled);
+});
+// This triggers the toggle event
+toggle1(true);
+// This does NOT trigger the toggle event
+toggle2();
+},{"../main.js":2}],2:[function(require,module,exports){
 
 module.exports = function (container, options) {
   options = options || {};
@@ -47,27 +70,4 @@ module.exports = function (container, options) {
   return toggle;
 };
 
-},{}],2:[function(require,module,exports){
-var ToggleWidget = require("../main.js");
-var div1 = document.createElement("div");
-var div2 = document.createElement("div");
-var toggle1 = ToggleWidget(div1);
-var toggle2 = ToggleWidget(div2, {
-  colors: ["orange", "olive", "pink"]
-});
-document.body.appendChild(div1);
-document.body.appendChild(div2);
-div1.addEventListener("toggle", function (event) {
-  console.log("toggle1 "+event.toggled);
-  // Disabled container prevent user click to toggle the button
-  // but toggle method can still programmatically switch it.
-  div2.disabled = event.toggled;
-});
-div2.addEventListener("toggle", function (event) {
-  console.log("toggle2 "+event.toggled);
-});
-// This triggers the toggle event
-toggle1(true);
-// This does NOT trigger the toggle event
-toggle2();
-},{"../main.js":1}]},{},[2]);
+},{}]},{},[1]);
